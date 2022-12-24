@@ -12,7 +12,9 @@ body {
   background-size: cover;
   font-family: "Open Sans", sans-serif;
 }
-
+span {
+  display: inline-block;
+}
 .calc-wrapper {
   border: 2px solid #efae02;
   width: 1068px;
@@ -153,7 +155,7 @@ body {
   color: #efae02;
   font-size: 56px;
   font-weight: 700;
-  text-align: left;
+  text-align: right;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #efae02;
