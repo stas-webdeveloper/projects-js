@@ -1,50 +1,65 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Frontend Developer Calc</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" defer>
+    <script src="js/script.js" defer></script>
 </head>
+
 <body>
-    <div class="calc">
-        <nav class="tabs">
-            <div class="tab-left active">Лэндинг</div>
-            <div class="tab-right">Многостраничник</div>
+    <div class="calc-wrapper">
+        <nav class="calc-tabs">
+            <span class="calc-tab--left active" data-tab-left>Лэндинг</span>
+            <span class="calc-tab--right" data-tab-right>Многостраничник</span>
         </nav>
-        <div class="blocks" id="blocks-block">
-            <div class="blocks-title">Количество блоков</div>
-            <input type="number" class="counter" id="counter-block">
+
+        <div class="calc-item calc-item__blocks" data-blocks-counter>
+            <span class="blocks-title">Количество блоков</span>
+            <input type="number" class="counter" data-blocks-input>
         </div>
-        <div class="blocks" id="pages-block">
-            <div class="blocks-title">Количество страниц</div>
-            <input type="number" class="counter" id="counter-pages">
+        <div class="calc-item calc-item__pages" data-pages-counter>
+            <span class="blocks-title">Количество страниц</span>
+            <input type="number" class="counter" data-pages-input>
         </div>
-        <div class="blocks" >
-            <div class="blocks-title">Сколько часов на проект</div>
-            <input type="number" class="counter" id="counter-hours">
+        <div class="calc-item calc-item__hours">
+            <span class="blocks-title">Сколько часов на проект</span>
+            <input type="number" class="counter" data-hours-input>
         </div>
-        <div class="blocks" >
-            <div class="blocks-title">Стоимость вашего часа</div>
-            <input type="number" class="counter" id="counter-rate">
+        <div class="calc-item calc-item__rate">
+            <span class="blocks-title">Стоимость вашего часа</span>
+            <input type="number" class="counter" data-rate-input>
         </div>
+
         <div class="addition">
-            <div class="addition-title">Дополнительно</div>
+            <span class="addition-title">Дополнительно</span>
             <label class="addition-block">
-                <input type="checkbox" class="checkbox" id="changes-check">Возможность редактировать текст на сайте</input>
+                <input type="checkbox" class="checkbox" data-edit-check>Возможность редактировать текст на сайте
+                </input>
             </label>
             <label class="addition-block">
-                <input type="checkbox" class="checkbox" id="cms-check">Установка на CMS
+                <input type="checkbox" class="checkbox" data-cms-check>Установка на CMS
             </label>
         </div>
+
         <div class="total">
             <p>Общая стоимость</p>
-            <input value="1500" type="text" class="total-count" id="total-value">
+            <input value="1500" type="text" class="total-output" data-total-count>
+        </div>
+        <div class="notes">
+            <span>Стоимость часа работы:</span>
+            <ul>
+                <li>Стандартная (срок исполнения - 5 рабочих дней) - 350руб</li>
+                <li>Срочная (срок исполнения - 3 рабочих дней) - 500руб</li>
+                <li>Сверхнормативная (изменения, внесенные после начала работы) - 600руб</li>
+            </ul>
         </div>
     </div>
-    <script src="js/script.js"></script>
 
 </body>
+
 </html>

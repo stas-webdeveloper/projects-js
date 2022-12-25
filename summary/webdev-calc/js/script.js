@@ -1,115 +1,147 @@
-let total = 5000,
-    time = 1,
-    hourRate,
-    tabLeft = document.querySelector('.tab-left'),
-    tabRight = document.querySelector('.tab-right'),
-    blocksBlock = document.getElementById('blocks-block'),
-    pagesBlock = document.getElementById('pages-block'),
-    counterBlock = document.getElementById('counter-block'),
-    counterPages = document.getElementById('counter-pages'),
-    counterHours = document.getElementById('counter-hours'),
-    counterRate = document.getElementById('counter-rate'),
-    changesCheck= document.getElementById('changes-check'),
-    cmsCheck = document.getElementById('cms-check'),
-    totalValue = document.getElementsByClassName('total-count')[0],
-    input = document.getElementsByTagName('input');
+// TODO: fix: TDD
+const landBasePrice = 1750,
+    multipageBasePrice = 9000,
+    cmsPrice = 4000,
+    editTextPrice = 1000,
+    blockPrice = 350,
+    landBlocksCount = 5,
+    pagePrice = 1500,
+    pagesBaseCount = 6,
+    defaultHours = 1,
+    defaultHourRate = 350,
 
-const land = 5000,
-    corp = 12000,
-    cms = 4000,
-    changes = 1000,
-    blocks = 500,
-    pages = 2500;
+    tabLeft = document.querySelector('[data-tab-left]'),
+    tabRight = document.querySelector('[data-tab-right]'),
+    blocksCounter = document.querySelector('[data-blocks-counter]'),
+    pagesCounter = document.querySelector('[data-pages-counter]'),
+    blocksInput = document.querySelector('[data-blocks-input]'),
+    pagesInput = document.querySelector('[data-pages-input]'),
+    hoursInput = document.querySelector('[data-hours-input]'),
+    rateInput = document.querySelector('[data-rate-input]'),
+    editCheck = document.querySelector('[data-edit-check]'),
+    cmsCheck = document.querySelector('[data-cms-check]'),
+    totalValue = document.querySelector('[data-total-count]'),
+    input = document.querySelectorAll('input');
 
-window.addEventListener('DOMContentLoaded', function() {
-    tabLeft.addEventListener('click', () => {
-        for (let i=0; i < input.length; i++) {
-            input[i].value = '';
-        }
-        blocksBlock.style.display = 'flex';
-        pagesBlock.style.display = 'none';
+let total,
+    totalChecked = 0,
+    blocksCount,
+    pagesCount,
+    hours = defaultHours,
+    hourRate = defaultHourRate;
 
-        tabLeft.classList.add('active');
-        tabRight.classList.remove('active');
+onTabLeft();
 
+document.addEventListener('click', e => {
+    const targetDataset = e.target.dataset;
 
-        if (changesCheck.checked) {
-            changesCheck.checked = false;
-        };
-        if (cmsCheck.checked) {
-            cmsCheck.checked = false;
-        };
-        total = land;
-        totalValue.value = total;
-    });
-    tabRight.addEventListener('click', () => {
-        for (let i=0; i < input.length; i++) {
-            input[i].value = '';
-        }
-        blocksBlock.style.display = 'none';
-        pagesBlock.style.display = 'flex';
+    if ('tabLeft' in targetDataset) onTabLeft()
+    if ('tabRight' in targetDataset) onTabRight()
+})
+document.addEventListener('change', e => {
+    const targetDataset = e.target.dataset;
 
-        tabRight.classList.add('active');
-        tabLeft.classList.remove('active');
+    if ('blocksInput' in targetDataset) countBlocks()
+    if ('pagesInput' in targetDataset) countPages()
+    if ('hoursInput' in targetDataset) countHoursCost()
+    if ('rateInput' in targetDataset) countHoursCost()
+    if ('cmsCheck' in targetDataset) checkCms()
+    if ('editCheck' in targetDataset) checkEdit()
+})
 
-        if (changesCheck.checked) {
-            changesCheck.checked = false;
-        };
-        if (cmsCheck.checked) {
-            cmsCheck.checked = false;
-        };
-        total = corp;
-        totalValue.value = total;
-    });
-    counterBlock.addEventListener('change', () => {
-        counterHours.value = '';
-        counterRate.value = '';
-        total = counterBlock.value*blocks;
-        totalValue.value = total;
+function onTabLeft() {
+    clearInputs()
+    blocksCounter.style.display = 'flex';
+    pagesCounter.style.display = 'none';
+    tabLeft.classList.add('active');
+    tabRight.classList.remove('active');
+    total = landBasePrice;
+    blocksCount = landBlocksCount;
 
-    });
-    counterPages.addEventListener('change', () => {
-        counterHours.value = '';
-        counterRate.value = '';
-        total = counterPages.value*pages;
-        totalValue.value = total;
+    blocksInput.value = blocksCount;
+    totalValue.value = total;
+}
 
-    });
-    counterHours.addEventListener('change', () => {
-        counterBlock.value = '';
-        counterPages.value = '';
-        total = 0;
-        time = counterHours.value;
-        hourRate = time*counterRate.value;
-        totalValue.value = hourRate;
-        total = hourRate;
+function onTabRight() {
+    clearInputs();
+    blocksCounter.style.display = 'none';
+    pagesCounter.style.display = 'flex';
+    tabRight.classList.add('active');
+    tabLeft.classList.remove('active');
+    total = multipageBasePrice;
+    pagesCount = pagesBaseCount;
 
-    });
-    counterRate.addEventListener('change', () => {
-        counterBlock.value = '';
-        counterPages.value = '';
-        total = 0;
-        hourRate = time*counterRate.value;
-        totalValue.value = hourRate;
-        total = hourRate;
+    pagesInput.value = pagesCount;
+    totalValue.value = total;
+}
+function checkCms() {
+    cmsCheck.checked
+        ? totalChecked += cmsPrice
+        : totalChecked -= cmsPrice;
+    totalValue.value = total + totalChecked;
+}
+function checkEdit() {
+    editCheck.checked
+        ? totalChecked += editTextPrice
+        : totalChecked -= editTextPrice;
+    totalValue.value = total + totalChecked;
+}
+function countBlocks() {
+    clearRate();
+    blocksCount = getBlocksCount();
+    total = blocksCount * blockPrice;
+    totalValue.value = total + totalChecked;
+}
+function countPages() {
+    clearRate();
+    pagesCount = getPagesCount();
+    total = pagesCount * pagePrice;
+    totalValue.value = total + totalChecked;
+}
 
-    });
-    changesCheck.addEventListener('change', () => {
-        if (changesCheck.checked) {
-            total += changes;
-            totalValue.value = total;
-        } else {
-            total -= changes;
-            totalValue.value = total;
-        }
-    });
-    cmsCheck.addEventListener('change', () => {
-        if (cmsCheck.checked) {
-            total += cms;
-            totalValue.value = total;
-        } else {
-            total -= cms;
-            totalValue.value = total;
-        }
-    });
-});
+function countHoursCost() {
+    clearFields()
+    hours = getHours();
+    hourRate = getHourRate();
+    total = hours * hourRate;
+    totalValue.value = total + totalChecked;
+}
+
+function getBlocksCount() {
+    return blocksInput.value !== ''
+        ? parseInt(blocksInput.value)
+        : landBlocksCount;
+}
+function getPagesCount() {
+    return pagesInput.value !== ''
+        ? parseInt(pagesInput.value)
+        : pagesBaseCount;
+}
+function getHours() {
+    return hoursInput.value !== ''
+        ? parseInt(hoursInput.value)
+        : defaultHours;
+}
+function getHourRate() {
+    return rateInput.value !== ''
+        ? parseInt(rateInput.value)
+        : defaultHourRate;
+}
+
+function clearInputs() {
+    for (let i = 0; i < input.length; i++) {
+        input[i].value = '';
+    }
+    editCheck.checked = false;
+    cmsCheck.checked = false;
+}
+function clearFields() {
+    blocksInput.value = '';
+    pagesInput.value = '';
+    total = 0;
+}
+function clearRate() {
+    hoursInput.value = '';
+    rateInput.value = '';
+    total = 0;
+}
