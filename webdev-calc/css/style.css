@@ -4,26 +4,29 @@
   box-sizing: border-box;
   outline: none;
 }
-
+html {
+  font-size: 10px;
+}
 body {
   height: 100vh;
   padding-top: 60px;
-  background: url(../img/bg.png) center no-repeat;
-  background-size: cover;
   font-family: "Open Sans", sans-serif;
+  color: #fff;
+  background: linear-gradient(rgb(0, 0, 0, 0.4), rgb(0,0,0,0.8)), url(../img/bg_black-white-1920x1080.jpg) center no-repeat;
+  background-size: cover;
 }
 span {
   display: inline-block;
 }
 .calc-wrapper {
-  border: 2px solid #efae02;
-  width: 1068px;
-  height: 746px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: top;
+  width: 1068px;
+  margin: 0 auto;
+  padding-bottom: 1rem;
+  border: 2px solid #efae02;
 }
 
 .calc-tabs {
@@ -39,7 +42,7 @@ span {
   width: 200px;
   height: 70px;
   margin-right: 5px;
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #cecece;
   line-height: 72px;
@@ -78,7 +81,7 @@ span {
   text-align: center;
   color: #efae02;
   font-weight: 700;
-  font-size: 48px;
+  font-size: 4.8rem;
 }
 
 .calc-item {
@@ -94,9 +97,8 @@ span {
 
 .blocks-title {
   position: relative;
-  font-size: 30px;
+  font-size: 3rem;
   font-weight: 700;
-  color: #fff;
 }
 
 .blocks-title:before {
@@ -115,7 +117,7 @@ span {
 
 .addition {
   color: #efae02;
-  font-size: 30px;
+  font-size: 3rem;
   font-weight: 700;
 }
 
@@ -127,11 +129,13 @@ span {
   display: block;
   text-align: left;
 }
-
-.addition-block input[type="checkbox"] {
+.addition-block {
   cursor: pointer;
+}
+.addition-block input {
   width: 24px;
   height: 24px;
+  margin-right: 1rem;
   opacity: 0.5;
 }
 
@@ -143,9 +147,8 @@ span {
   margin-top: 60px;
   margin-bottom: 30px;
   padding-bottom: 0;
-  font-size: 36px;
+  font-size: 3.6rem;
   font-weight: 700;
-  color: #fff;
 }
 
 .total-output {
@@ -153,10 +156,13 @@ span {
   width: 170px;
   height: 60px;
   color: #efae02;
-  font-size: 56px;
+  font-size: 5.6rem;
   font-weight: 700;
   text-align: right;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #efae02;
+}
+.notes {
+  font-size: 1.6rem;
 }
